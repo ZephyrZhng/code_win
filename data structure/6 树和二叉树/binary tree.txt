@@ -1,0 +1,11 @@
+#A#
+ABL
+ACR
+BDL
+BER
+CFL
+DIL
+FGL
+FHR
+HJR
+###

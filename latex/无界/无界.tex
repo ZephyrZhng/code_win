@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+Proof that the following formula is unbounded:
+\[ \sum\limits_{i = 0}^n \left( \frac{1}{ni!(n - i)!}\int_0^n \! \prod\limits_{\substack{j = 0 \\ j \neq i}}^n (t - j) \mathrm{d}t \right) \]
+
+In fact, in $Numerical \ Analysis$, we know $Newton-Cotes \ method$, and the $Cotes \ number$'s formula is shown below:
+\[ C_i^{(n)} = \frac{(-1)^{n - i}}{ni!(n - i)!}\int_0^n \! \prod\limits_{\substack{j = 0 \\ j \neq i}}^n (t - j) \mathrm{d}t \]
+
+Here is an important quality that we can refer to:
+\[ \sum\limits_{i = 0}^n C_i^{(n)} = 1 \]
+
+But the following one
+\[ \sum\limits_{i = 0}^n \left| C_i^{(n)} \right| \]
+is unbounded.
+
+\end{CJK*}
+\end{document}

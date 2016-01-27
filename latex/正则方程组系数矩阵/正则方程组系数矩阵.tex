@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+\title{正则方程组系数矩阵}
+\date{}
+\maketitle
+
+如果向量组$\bm{\varphi}_0, \bm{\varphi}_1, ..., \bm{\varphi}_n$线性无关，则正则方程组的系数矩阵是对称正定矩阵。\\
+
+\textbf{证明}
+
+正则方程组系数矩阵：
+\[
+A = 
+\left(
+\begin{array}{cccc}
+(\bm{\varphi}_0, \bm{\varphi}_0) & (\bm{\varphi}_0, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_0, \bm{\varphi}_n) \\
+(\bm{\varphi}_1, \bm{\varphi}_0) & (\bm{\varphi}_1, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_1, \bm{\varphi}_n) \\
+\vdots & \vdots & \ddots & \vdots \\
+(\bm{\varphi}_n, \bm{\varphi}_0) & (\bm{\varphi}_n, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_n, \bm{\varphi}_n) \\
+\end{array}
+\right)
+\]
+
+下面对$n$归纳证明$A$对称正定，即$\forall \bm{x} \neq \bm{0}, \bm{x}^\top A \bm{x} > 0$ \\
+
+$\textcircled{1} n = 1, \bm{x}_0(\bm{\varphi}_0, \bm{\varphi}_0)\bm{x}_0 > 0$显然成立 \\
+
+$\textcircled{2}$假设$n = k$时成立，即 \\
+\[ \bm{x}_k^\top A_k \bm{x}_k > 0 \]
+其中
+\[
+\bm{x}_k =
+\left(
+\begin{array}{cccc}
+x_1 & x_2 & \ldots & x_k
+\end{array}
+\right)^\top
+\]
+\[
+A_k = 
+\left(
+\begin{array}{cccc}
+(\bm{\varphi}_0, \bm{\varphi}_0) & (\bm{\varphi}_0, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_0, \bm{\varphi}_k) \\
+(\bm{\varphi}_1, \bm{\varphi}_0) & (\bm{\varphi}_1, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_1, \bm{\varphi}_k) \\
+\vdots & \vdots & \ddots & \vdots \\
+(\bm{\varphi}_k, \bm{\varphi}_0) & (\bm{\varphi}_k, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_k, \bm{\varphi}_k) \\
+\end{array}
+\right)
+\]
+
+$n = k + 1$时 \\
+\leftline{$\bm{x}_{k + 1}^\top A_{k + 1} \bm{x}_{k + 1} = $}
+\[
+\left(
+\begin{array}{ccccc}
+x_1 & x_2 & \ldots & x_k & x_{k + 1}
+\end{array}
+\right)
+\left(
+\begin{array}{ccccc}
+(\bm{\varphi}_0, \bm{\varphi}_0) & (\bm{\varphi}_0, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_0, \bm{\varphi}_k) & (\bm{\varphi}_0, \bm{\varphi}_{k + 1}) \\
+(\bm{\varphi}_1, \bm{\varphi}_0) & (\bm{\varphi}_1, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_1, \bm{\varphi}_k) & (\bm{\varphi}_1, \bm{\varphi}_{k + 1}) \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+(\bm{\varphi}_k, \bm{\varphi}_0) & (\bm{\varphi}_k, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_k, \bm{\varphi}_k) & (\bm{\varphi}_k, \bm{\varphi}_{k + 1}) \\
+(\bm{\varphi}_{k + 1}, \bm{\varphi}_0) & (\bm{\varphi}_{k + 1}, \bm{\varphi}_1) & \ldots & (\bm{\varphi}_{k + 1}, \bm{\varphi}_k) & (\bm{\varphi}_{k + 1}, \bm{\varphi}_{k + 1})
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+x_1 \\ x_2 \\ \vdots \\ x_k \\ x_{k + 1}
+\end{array}
+\right)
+\]
+
+记
+\[
+\bm{\alpha}_k =
+\left(
+\begin{array}{c}
+(\bm{\varphi}_0, \bm{\varphi}_{k + 1}) \\
+(\bm{\varphi}_1, \bm{\varphi}_{k + 1}) \\
+\vdots \\
+(\bm{\varphi}_k, \bm{\varphi}_{k + 1})
+\end{array}
+\right)
+\]
+\[
+\bm{\beta}_k =
+((\bm{\varphi}_{k + 1}, \bm{\varphi}_0) \ 
+(\bm{\varphi}_{k + 1}, \bm{\varphi}_1) \ 
+\ldots \ 
+(\bm{\varphi}_{k + 1}, \bm{\varphi}_k))
+\]
+
+于是上式可写为
+\[
+\begin{aligned}
+\left(
+\begin{array}{cc}
+\bm{x}_k^\top & x_{k + 1}
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+A_k & \bm{\alpha}_k \\
+\bm{\beta}_k & (\bm{\varphi}_{k + 1}, \bm{\varphi}_{k + 1})
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+\bm{x}_k \\ x_{k + 1}
+\end{array}
+\right)
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+&=
+\left(
+\begin{array}{cc}
+\bm{x}^\top A_k + x_{k + 1}\bm{\beta}_k & \bm{x}_k^\top \bm{\alpha}_k + x_{k + 1}
+\left(
+\begin{array}{cc}
+\bm{\varphi}_{k + 1} & \bm{\varphi}_{k + 1}
+\end{array}
+\right)
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+\bm{x}_k \\
+x_{k + 1}
+\end{array}
+\right) \\
+&=
+\bm{x}_k^\top A_k \bm{x}_k +
+x_{k + 1} \bm{\beta}_k \bm{x}_k +
+\bm{x}_k^\top \bm{\alpha}_k x_{k + 1} +
+x_{k + 1}
+\left(
+\begin{array}{cc}
+\bm{\varphi}_{k + 1} & \bm{\varphi}_{k + 1}
+\end{array}
+\right)
+x_{k + 1} \\
+&=
+\bm{x}_k^\top A_k\bm{x}_k + 2x_{k + 1}\bm{\alpha}_k^\top\bm{x}_k + x_{k + 1}
+\left(
+\begin{array}{cc}
+\bm{\varphi}_{k + 1} & \bm{\varphi}_{k + 1}
+\end{array}
+\right)
+\end{aligned}
+\]
+
+
+
+\end{CJK*}
+\end{document}

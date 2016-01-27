@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+\section*{一个简单而有\mars趣的函数}
+定义函数
+\[ \Omega_{n + 1}(t) = \prod\limits_{i = 0}^n (t - i) \]
+
+\section{极值点}
+\[ \Omega'_{n + 1}(t) = \sum_{k = 0}^n \frac{\Omega_{n + 1}(t)}{t - k} \]
+令$\Omega'_{n + 1}(t) = 0$可求得极值点，但是\includegraphics[scale = 0.3]{bm12.jpg}该怎么解呢？
+
+\section{导数}
+利用$Mathematica$，我对$\Omega_{n + 1}(t)$求了前12阶导，归纳出了下面的式子
+\[ \Omega^{(k)}_{n + 1}(t) = \sum_{i = 0}^n \sum_{j = 1}^k \frac{(-1)^{j + 1}(k - 1)!\Omega^{k - j}_{n + 1}(t)}{(k - j)!(t - i)^j} \]
+\includegraphics[scale = 0.3]{bm21.jpg}看起来相当给力啊
+
+\section{积分}
+\[
+\begin{aligned}
+\int_0^n \! \Omega_{n + 1}(t) \, \mathrm{d}t
+&= \int_0^n \! [t - 0][t - 1][t - 2] \ldots [t - (n - 1)][t - n] \, \mathrm{d}t \\
+&= \left.t\Omega_{n + 1}(t) \right|_0^n - \int_0^n \! t\Omega'_{n + 1}(t) \, \mathrm{d}t \\
+&= \left.t\Omega_{n + 1}(t) \right|_0^n - \left( {\left.{\frac{t^2}{2}\Omega'_{n + 1}(t)} \right|_0^n - \int_0^n \! \frac{t^2}{2}\Omega''_{n + 1}(t) \, \mathrm{d}t} \right) \\
+&= \left.t\Omega_{n + 1}(t) \right|_0^n - \left.\frac{t^2}{2}\Omega'_{n + 1}(t) \right|_0^n + \int_0^n \! \frac{t^2}{2}\Omega''_{n + 1}(t) \, \mathrm{d}t \\
+&= \left.t\Omega_{n + 1}(t) \right|_0^n - \left.\frac{t^2}{2}\Omega'_{n + 1}(t) \right|_0^n + \left.\frac{t^3}{6}\Omega''_{n + 1}(t) \right|_0^n - \int_0^n \! \frac{t^3}{6}\Omega'''_{n + 1}(t) \mathrm{d}t \\
+&= \ldots \\
+&= \left.t\Omega_{n + 1}(t) \right|_0^n - \left.\frac{t^2}{2!}\Omega'_{n + 1}(t) \right|_0^n + \left.\frac{t^3}{3!}\Omega''_{n + 1}(t) \right|_0^n + \ldots + \left.(-1)^{n + 1}\frac{t^{n + 2}}{(n + 2)!}\Omega^{n + 1}_{n + 1}(t) \right|_0^n \\
+&= \left.\left[ t\Omega_{n + 1}(t) - \frac{t^2}{2!}\Omega'_{n + 1}(t) + \frac{t^3}{3!}\Omega''_{n + 1}(t) + \ldots + (-1)^{n + 1}\frac{t^{n + 2}}{(n + 2)!}\Omega^{n + 1}_{n + 1}(t) \right] \right|_0^n
+\end{aligned}
+\]
+当然，我们可以定义函数
+\[
+\begin{aligned}
+f(t)
+&= t\Omega_{n + 1}(t) - \frac{t^2}{2!}\Omega'_{n + 1}(t) + \frac{t^3}{3!}\Omega''_{n + 1}(t) + \ldots + (-1)^{n + 1}\frac{t^{n + 2}}{(n + 2)!}\Omega^{n + 1}_{n + 1}(t) \\
+&= \sum_{i = 1}^{n + 2} \frac{(-1)^{i + 1}t^i}{i!} \Omega_{n + 1}^{(i - 1)}(t)
+\end{aligned}
+\]
+然后求出$f(n) - f(0)$即可，但事实上我连$\Omega_{n + 1}^{(k)}(0)$和$\Omega_{n + 1}^{(k)}(n)$都不会求
+\includegraphics[scale = 0.3]{bm42.jpg} \\
+直观上看，$\Omega_{n + 1}^{(k)}$是一个$n - k + 1$次多项式，其各项均为一个累乘式，对它求导得到$\Omega_{n + 1}^{(k + 1)}$，它是$\Omega_{n + 1}^{(k)}$中各累乘式中去掉一项的全组合。
+
+\end{CJK*}
+\end{document}

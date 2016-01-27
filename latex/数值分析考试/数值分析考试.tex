@@ -1,0 +1,106 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+\section{$Jacobi$迭代法的收敛条件}
+若迭代格式系数矩阵为
+\[
+A = 
+\left(
+\begin{array}{cccc}
+1 & \alpha & \ldots & \alpha \\
+\alpha & 1 & \ldots & \alpha \\
+\vdots & \vdots & \ddots & \vdots \\
+\alpha & \alpha & \ldots & 1
+\end{array}
+\right)
+\]
+
+则其$Jacobi$方法的迭代矩阵为
+\[
+B = 
+\left(
+\begin{array}{cccc}
+0 & \alpha & \ldots & \alpha \\
+\alpha & 0 & \ldots & \alpha \\
+\vdots & \vdots & \ddots & \vdots \\
+\alpha & \alpha & \ldots & 0
+\end{array}
+\right)
+\]
+
+解其特征方程
+\[
+\begin{aligned}
+\left|
+\begin{array}{cccc}
+\lambda & -\alpha & \ldots & -\alpha \\
+-\alpha & \lambda & \ldots & -\alpha \\
+\vdots & \vdots & \ddots & \vdots \\
+-\alpha & -\alpha & \ldots & \lambda
+\end{array}
+\right|
+&=
+\left|
+\begin{array}{cccc}
+\lambda - (n - 1)\alpha & \lambda - (n - 1)\alpha & \ldots & \lambda - (n - 1)\alpha \\
+-\alpha & \lambda & \ldots & -\alpha \\
+\vdots & \vdots & \ddots & \vdots \\
+-\alpha & -\alpha & \ldots & \lambda
+\end{array}
+\right| \\
+&=
+\left|
+\begin{array}{cccc}
+\lambda - (n - 1)\alpha & 0 & \ldots & 0 \\
+-\alpha & \lambda + \alpha & \ldots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+-\alpha & 0 & \ldots & \lambda + \alpha
+\end{array}
+\right| \\
+&= [\lambda - (n - 1)\alpha](\lambda + \alpha)^{n - 1} = 0
+\end{aligned}
+\]
+
+显然$-\alpha$是其$n - 1$重特征值，还有一个特征值为$(n - 1)\alpha$，显然矩阵谱半径为$|(n - 1)\alpha|$，要想让$Jacobi$迭代法收敛，只需令
+\[ \rho(B) = |(n - 1)\alpha| < 1 \]
+即可，解得
+\[ |\alpha| < \frac{1}{n - 1} \]
+
+这与令系数矩阵$A$严格对角占优，即
+\[ (n - 1)|\alpha| < 1 \]
+得到的结果相同
+
+\section{条件数}
+证明$Cond_2(A^\top A) \neq [Cond_2(A)]^2$
+\[
+\begin{aligned}
+Cond_2
+&= ||A^\top A||_2||(A^\top A)^{-1}||_2 \\
+&= ||A^\top A||_2||A^{-1}(A^\top)^{-1}||_2 \\
+&= ||A^\top A||_2||A^{-1}(A^{-1})^\top||_2 \\
+&= \sqrt{\rho((A^\top A)^2)}\sqrt{\rho((A^{-1}(A^{-1})^\top)^2)} \\
+&= \sqrt{\rho^2(A^\top A)}\sqrt{\rho^2(A^{-1}(A^{-1})^\top)} \\
+&= \rho(A^\top A)\rho(A^{-1}(A^{-1})^\top)
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+\left[Cond_2(A)\right]^2
+&= [||A||_2||A^{-1}||_2]^2 \\
+&= \rho(A^\top A)\rho((A^{-1})^\top A^{-1})
+\end{aligned}
+\]
+
+由于$\rho(A^{-1}(A^{-1})^\top) \neq \rho(A^{-1}(A^{-1})^\top)$，故得证
+
+\end{CJK*}
+\end{document}

@@ -1,0 +1,107 @@
+Microsoft (R) Macro Assembler Version 5.00                  6/5/14 16:41:06
+                                                             Page     1-1
+
+
+					extrn	madd: far 
+				 
+ 0000				dseg	segment 
+ 0000  01 01 01 01 01 01 01	data1	db	1,1,1,1,1,1,1,1,1,1 
+       01 01 01			
+ 000A  02 02 02 02 02		data2	db	2,2,2,2,2 
+ 000F				dseg	ends 
+				 
+ 0000				sseg	segment	stack 
+ 0000  0032[			sktop	db	50 dup (0) 
+	   00			
+			 ]	
+				
+ 0032				sseg	ends 
+				 
+ 0000				cseg	segment 
+					assume	cs: cseg, ss: sseg, ds: dseg 
+				 
+ 0000  B8 ---- R		start:	mov	ax, sseg 
+ 0003  8E D0				mov	ss, ax 
+ 0005  BC 0032				mov	sp, size sktop 
+ 0008  B8 ---- R			mov	ax, dseg 
+ 000B  8E D8				mov	ds, ax 
+ 000D  8E C0				mov	es, ax 
+				 
+ 000F  33 C9				xor	cx, cx 
+ 0011  B2 61			again:	mov	dl, 'a' 
+ 0013  B4 02				mov	ah, 2 
+ 0015  CD 21				int	21h 
+ 0017  E2 F8				loop	again 
+				 
+ 0019  8D 36 0000 R			lea	si, data1 
+ 001D  8D 3E 000A R			lea	di, data2 
+ 0021  FC				cld 
+ 0022  B9 0003				mov	cx, 3 
+ 0025  F3/ A4				rep	movsb ;data2, data1 
+				 
+					;mov	bx, next 
+ 0027  B8 0030 R			mov	ax, offset next 
+ 002A  8C C8				mov	ax, cs 
+					;mov	cs, ax 
+ 002C  8C D8				mov	ax, ds 
+ 002E  8E D8				mov	ds, ax 
+					;add	ax, ds 
+					;add	ds, ax 
+					;add	ax, cs 
+					;add	cs, ax 
+ 0030  90			next:	nop 
+				 
+ 0031  B9 0005				mov	cx, 5 
+ 0034  8D 3E 0000 R			lea	di, data1 
+ 0038  8D 1E 000A R			lea	bx, data2 
+					 
+ 003C  9A 0000 ---- E			call	madd 
+Microsoft (R) Macro Assembler Version 5.00                  6/5/14 16:41:06
+                                                             Page     1-2
+
+
+				 
+ 0041  B4 4C			stop:	mov	ah, 4ch 
+ 0043  CD 21				int	21h 
+ 0045				cseg	ends 
+					end 	start 
+Microsoft (R) Macro Assembler Version 5.00                  6/5/14 16:41:06
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CSEG . . . . . . . . . . . . . .  	0045	PARA	NONE	
+DSEG . . . . . . . . . . . . . .  	000F	PARA	NONE	
+SSEG . . . . . . . . . . . . . .  	0032	PARA	STACK	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+AGAIN  . . . . . . . . . . . . .  	L NEAR	0011	CSEG
+
+DATA1  . . . . . . . . . . . . .  	L BYTE	0000	DSEG
+DATA2  . . . . . . . . . . . . .  	L BYTE	000A	DSEG
+
+MADD . . . . . . . . . . . . . .  	L FAR 	0000		External
+
+NEXT . . . . . . . . . . . . . .  	L NEAR	0030	CSEG
+
+SKTOP  . . . . . . . . . . . . .  	L BYTE	0000	SSEG	Length = 0032
+START  . . . . . . . . . . . . .  	L NEAR	0000	CSEG
+STOP . . . . . . . . . . . . . .  	L NEAR	0041	CSEG
+
+@FILENAME  . . . . . . . . . . .  	TEXT  test		
+
+
+     55 Source  Lines
+     55 Total   Lines
+     13 Symbols
+
+  51172 + 465372 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

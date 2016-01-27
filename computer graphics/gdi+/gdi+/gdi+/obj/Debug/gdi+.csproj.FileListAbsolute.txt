@@ -1,0 +1,9 @@
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\bin\Debug\gdi+.exe.config
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\bin\Debug\gdi+.exe
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\bin\Debug\gdi+.pdb
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\obj\Debug\gdi+.csprojResolveAssemblyReference.cache
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\obj\Debug\gdi_.Form1.resources
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\obj\Debug\gdi_.Properties.Resources.resources
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\obj\Debug\gdi+.csproj.GenerateResource.Cache
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\obj\Debug\gdi+.exe
+E:\document\programs\computer graphics\gdi+\gdi+\gdi+\obj\Debug\gdi+.pdb

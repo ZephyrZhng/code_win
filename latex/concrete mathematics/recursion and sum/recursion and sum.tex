@@ -1,0 +1,209 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage{mathdots}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn}
+
+\newcommand \fallingfactorialpower[2]{{#1}^{\underline{#2}}}
+\newcommand \columnvector[2]{
+	\left(
+	\begin{array}{c}
+	{#1}_1 \\ {#1}_2 \\ \vdots \\ {#1}_{#2}
+	\end{array}
+	\right)
+}
+\newcommand \rowvector[2]{
+	\left(
+	\begin{array}{cccc}
+	{#1}_1 & {#1}_2 & \ldots & {#1}_{#2}
+	\end{array}
+	\right)
+}
+
+\title{关于$1$到$n$的$k$次方之和的问题}
+\author{张艺瀚}
+\date{}
+\maketitle
+
+定义：
+\[
+S_k(n) = \sum_{i = 1}^n i^k
+\]
+
+\section{方法$1$：使用二项展开}
+
+\[
+\begin{aligned}
+& 1^{k + 1} = 1 \\
+& 2^{k + 1} = (1 + 1)^{k + 1} = \sum_{i = 0}^{k + 1} \binom {k + 1} i 1^i = \binom {k + 1} 0 1^0 + \binom {k + 1} 1 1^1 + \ldots + \binom {k + 1} {k + 1} 1^{k + 1} \\
+& 3^{k + 1} = (2 + 1)^{k + 1} = \sum_{i = 0}^{k + 1} \binom {k + 1} i 2^i = \binom {k + 1} 0 2^0 + \binom {k + 1} 1 2^1 + \ldots + \binom {k + 1} {k + 1} 2^{k + 1} \\
+& \ldots \\
+& (n + 1)^{k + 1} = \sum_{i = 0}^{k + 1} \binom {k + 1} i n^i = \binom {k + 1} 0 n^0 + \binom {k + 1} 1 n^1 + \ldots + \binom {k + 1} {k + 1} n^{k + 1} \\
+\end{aligned}
+\]
+
+将上面的等式左右相加，除第一个外，每个式子的左边与下个式子的右边最后一项相消：
+\[
+\begin{aligned}
+(n + 1)^{k + 1}	& = 1 + \binom {k + 1} 0 \sum_{i = 1}^n i^0 + \binom {k + 1} 1 \sum_{i = 1}^n i^1 + \ldots + \binom {k + 1} k \sum_{i = 1}^n i^k \\
+				& = 1 + \sum_{j = 0}^{k - 1} \left( \binom {k + 1} j \sum_{i = 1}^n i^j \right) + (k + 1)S_k(n) \\
+\end{aligned}
+\]
+
+从而：
+\[
+\begin{aligned}
+S_k(n)	& = \frac{1}{k + 1} \left[ (n + 1)^k - \sum_{j = 0}^{k - 1} \left( \binom {k + 1} j \sum_{i = 1}^n i^j \right) - 1 \right] \\
+		& = \frac{1}{k + 1} \left[ (n + 1)^k - \sum_{j = 0}^{k - 1} \binom {k + 1} j S_j(n) - 1 \right]
+\end{aligned}
+\]
+
+这是一个很强的递归式，尝试将它化为封闭形式，以失败告终。这个式子对我们没什么帮助。
+事实上，有一个阿尔哈曾公式：
+\[
+S_{k + 1}(n) = (n + 1)S_k^n - \sum_{i = 1}^n \sum_{j = 1}^i j^k
+\]
+
+这个公式可以用几何方法很容易的证明。
+
+\section{方法$2$：使用下降阶乘幂}
+下降阶乘幂指的是：
+\[
+\fallingfactorialpower{n}{k} = x(x - 1)\ldots(x - k + 1)
+\]
+
+首先看如何将正常的幂转化为下降阶乘幂，即求下面的$a_1, a_2, \ldots a_k$
+\[
+n^k = a_1\fallingfactorialpower{n}{k} + a_2\fallingfactorialpower{n}{k - 1} + \ldots + a_k\fallingfactorialpower{n}{1}
+\]
+
+分别取$n$为$1, 2, \ldots k$，得到下面的关于$a_1, a_2, \ldots a_k$的线性方程组：
+\[
+\begin{cases}
+1^k = a_1\fallingfactorialpower{1}{k} + a_2\fallingfactorialpower{1}{k - 1} + \ldots + a_k\fallingfactorialpower{1}{1} \\
+2^k = a_1\fallingfactorialpower{2}{k} + a_2\fallingfactorialpower{2}{k - 1} + \ldots + a_k\fallingfactorialpower{2}{1} \\
+\ldots \\
+k^k = a_1\fallingfactorialpower{k}{k} + a_2\fallingfactorialpower{k}{k - 1} + \ldots + a_k\fallingfactorialpower{k}{1} \\
+\end{cases}
+\]
+
+写成喜闻乐见的矩阵形式就是：
+\[
+\left(
+\begin{array}{cccc}
+\fallingfactorialpower{1}{k} & \fallingfactorialpower{1}{k - 1} & \ldots & \fallingfactorialpower{1}{1} \\
+\fallingfactorialpower{2}{k} & \fallingfactorialpower{2}{k - 1} & \ldots & \fallingfactorialpower{2}{1} \\
+\vdots & \vdots & \ddots & \vdots \\
+\fallingfactorialpower{k}{k} & \fallingfactorialpower{k}{k - 1} & \ldots & \fallingfactorialpower{k}{1} \\
+\end{array}
+\right)
+\columnvector{a}{k} =
+\left(
+\begin{array}{c}
+1^k \\ 2^k \\ \vdots \\ k^k
+\end{array}
+\right)
+\]
+
+根据$\fallingfactorialpower{x}{k}$的定义我们知道，$x$取$0, 1, \ldots k - 1$时，$\fallingfactorialpower{x}{k}$均为$0$，从而：
+\[
+\left(
+\begin{array}{cccc}
+								&			&								&\fallingfactorialpower{1}{1}	\\
+								&			&\fallingfactorialpower{2}{2}	&\fallingfactorialpower{2}{1}	\\
+								&\iddots	&\vdots							&\vdots							\\
+\fallingfactorialpower{k}{k}	&\ldots		&\fallingfactorialpower{k}{2}	&\fallingfactorialpower{k}{1}	\\	
+\end{array}
+\right)
+\columnvector{a}{k} =
+\left(
+\begin{array}{c}
+1^k \\ 2^k \\ \vdots \\ k^k \\
+\end{array}
+\right)
+\]
+
+我们知道：
+\[
+\fallingfactorialpower{n}{k} =
+\begin{cases}
+0 & n < k \\
+\dfrac{n!}{(n - k)!} = k!  \dbinom{n}{k} & n \geq k
+\end{cases}
+\]
+
+从而：
+\[
+\left(
+\begin{array}{cccc}
+	&			&						&\dfrac{1!}{(1 - 1)!}	\\
+	&			&2!						&\dfrac{2!}{(2 - 1)!}	\\
+	&\iddots	&\vdots					&\vdots					\\
+k!	&\ldots		&\dfrac{k!}{(k - 2)!}	&\dfrac{k!}{(k - 1)!}	\\
+\end{array}
+\right)
+\columnvector{a}{k} =
+\left(
+\begin{array}{c}
+1^k \\ 2^k \\ \vdots \\ k^k \\
+\end{array}
+\right)
+\]
+
+化简得：
+\[
+\left(
+\begin{array}{cccc}
+	&			&						&1						\\
+	&			&1						&\dfrac{1}{1!}			\\
+	&\iddots	&\vdots					&\vdots					\\
+1	&\ldots		&\dfrac{1}{(k - 2)!}	&\dfrac{1}{(k - 1)!}	\\
+\end{array}
+\right)
+\columnvector{a}{k} =
+\left(
+\begin{array}{c}
+\dfrac{1^k}{1!} \\ \dfrac{2^k}{2!} \\ \vdots \\ \dfrac{k^k}{k!} \\
+\end{array}
+\right)
+\]
+
+容易看到：
+\[
+a_j =
+\begin{cases}
+1 & j = 1 \\
+(j - 1)!\left( \dfrac{j^k}{j!} - \dfrac{(j - 1)^k}{(j - 1)!} \right) = j^{k - 1} - (j - 1)^k & j = 2, 3, \ldots k
+\end{cases}
+\]
+
+这样我们就有：
+\[
+\begin{aligned}
+n^k	& = \sum_{j = 1}^k a_j \fallingfactorialpower{n}{k - j + 1} \\
+	& = \sum_{j = 1}^k (j^{k - 1} - (j - 1)^k) \fallingfactorialpower{n}{k - j + 1}
+\end{aligned}
+\]
+
+于是：
+\[
+\begin{aligned}
+\sum_{0 \leq n < N} n^k	& = 0^k + 1^k + \ldots + (N - 1)^k \\
+						& = \sum_{j = 1}^k \left[ (j^{j - 1} - (j - 1)^k) \dfrac{\fallingfactorialpower{N}{k - j + 2}}{k - j + 2} \right]
+\end{aligned}
+\]
+\[
+\begin{aligned}
+\sum_{0 \leq n < N + 1} n^k	& = \sum_{n = 1}^N n^k \\
+							& = \sum_{j = 1}^k \left[ (j^{j - 1} - (j - 1)^k) \dfrac{\fallingfactorialpower{(N + 1)}{k - j + 2}}{k - j + 2} \right]
+\end{aligned}
+\]
+
+\end{CJK*}
+\end{document}

@@ -1,0 +1,5 @@
+3 3
+q0	{ q0 }	phi	phi	{ q1 }
+q1	phi	{ q1 }	phi	{ q2 }
+q2	phi	phi	{ q2 }	phi
+状态集大小 字符集大小
